@@ -1,5 +1,5 @@
 // src/lib/signalR.ts
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel ,HttpTransportType} from '@microsoft/signalr';
 import { create } from 'zustand';
 
 
@@ -39,7 +39,8 @@ export const useChatStore = create<ChatStore>((set, get) => ({
             accessTokenFactory: () => token,
             headers: {
                 Authorization: `Bearer ${token}`  
-            }
+            },
+            transport: HttpTransportType.WebSockets,
         })
         .withAutomaticReconnect()
         .configureLogging(LogLevel.Information)
